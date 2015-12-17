@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="BuildAll" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <ItemGroup>
+  	<MSBuildVersion Include="Libs\MSBuild14">
+		<Version>14</Version>
+		<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+		<MicrosoftBuildFrameworkPath>Libs\MSBuild14\Microsoft.Build.Framework.dll</MicrosoftBuildFrameworkPath>
+	</MSBuildVersion>
+	<MSBuildVersion Include="Libs\MSBuild12">
+		<Version>12</Version>
+		<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+		<MicrosoftBuildFrameworkPath>Libs\MSBuild12\Microsoft.Build.Framework.dll</MicrosoftBuildFrameworkPath>
+	</MSBuildVersion>
+	<MSBuildVersion Include="Libs\MSBuild4">
+		<Version>4</Version>
+		<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+		<MicrosoftBuildFrameworkPath>Libs\MSBuild4\Microsoft.Build.Framework.dll</MicrosoftBuildFrameworkPath>
+	</MSBuildVersion>
+	<MSBuildVersion Include="Libs\MSBuild2">
+		<Version>2</Version>
+		<TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+		<MicrosoftBuildFrameworkPath>Libs\MSBuild2\Microsoft.Build.Framework.dll</MicrosoftBuildFrameworkPath>
+	</MSBuildVersion>
+  </ItemGroup>
+
+  <Target Name="BuildAll">
+	<MSBuild Projects="JetBrains.TeamCity.MSBuildLogger.csproj" Targets="Build" Properties="MSBuildVersion=%(MSBuildVersion.Version);TargetFrameworkVersion=%(MSBuildVersion.TargetFrameworkVersion);MicrosoftBuildFrameworkPath=%(MSBuildVersion.MicrosoftBuildFrameworkPath)"/>
+  </Target>
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EBE2F4BB-471E-4878-B2D9-E11264DBBA0F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JetBrains.TeamCity.MSBuildLogger</RootNamespace>
+    <AssemblyName>JetBrains.TeamCity.MSBuildLogger</AssemblyName>
+	<MSBuildVersion Condition=" '$(MSBuildVersion)' == '' ">14</MSBuildVersion>
+    <TargetFrameworkVersion Condition=" '$(TargetFrameworkVersion)' == '' ">v4.5</TargetFrameworkVersion>
+    <MicrosoftBuildFrameworkPath Condition=" '$(MSBuildVersion)' == '' ">Libs\MSBuild14\Microsoft.Build.Framework.dll</MicrosoftBuildFrameworkPath>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug$(MSBuildVersion)\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>3</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release$(MSBuildVersion)\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>3</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework">
+      <HintPath>$(MicrosoftBuildFrameworkPath)</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Logger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
